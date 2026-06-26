@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact us</title>
+</head>
+<style>
+.contact-container{
+    max-width:900px;
+    margin:0 auto;
+    padding:60px 20px;
+    text-align:center;
+}
+
+.title{
+    font-size:70px;
+    margin-bottom:50px;
+}
+
+.contact-card{
+    display:block;
+    margin:25px auto;
+    max-width:700px;
+    text-align:left;
+    padding:25px 35px;
+}
+
+.contact-card h2{
+    margin:0 0 10px;
+    font-size:30px;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.contact-card p{
+    margin:0;
+    font-size:24px;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.back-btn{
+    margin-top:40px;
+}
+.background{
+    position:fixed;
+    inset:0;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    z-index:-1;
+    pointer-events:none;
+}
+
+.scene{
+    width:600px;
+    height:600px;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    perspective:1200px;
+}
+
+.cube{
+    width:350px;
+    height:350px;
+    position:relative;
+    transform-style:preserve-3d;
+    animation:rotate 18s linear infinite;
+}
+
+.face{
+    position:absolute;
+    width:350px;
+    height:350px;
+
+    background:rgba(59,130,246,.10);
+    border:2px solid rgba(96,165,250,.25);
+    border-radius:30px;
+
+    box-shadow:0 0 80px rgba(59,130,246,.15);
+    backdrop-filter:blur(10px);
+}
+
+.front  { transform:translateZ(175px); }
+.back   { transform:rotateY(180deg) translateZ(175px); }
+.right  { transform:rotateY(90deg) translateZ(175px); }
+.left   { transform:rotateY(-90deg) translateZ(175px); }
+.top    { transform:rotateX(90deg) translateZ(175px); }
+.bottom { transform:rotateX(-90deg) translateZ(175px); }
+
+@keyframes rotate{
+    from{ transform:rotateX(0deg) rotateY(0deg); }
+    to{ transform:rotateX(360deg) rotateY(360deg); }
+}
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+}
+
+body{
+    margin:0;
+    min-height:100vh;
+    color:white;
+    overflow-x:hidden;
+
+    background:
+    radial-gradient(circle at top left,#2563eb 0%,transparent 35%),
+    radial-gradient(circle at bottom right,#7c3aed 0%,transparent 35%),
+    #0f172a;
+
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+}
+.btn{
+    padding:15px 35px;
+    border-radius:15px;
+
+    text-decoration:none;
+    color:white;
+
+    background:linear-gradient(
+        135deg,
+        #3b82f6,
+        #8b5cf6
+    );
+
+    transition:.3s;
+}
+
+.btn:hover{
+    transform:translateY(-5px);
+}
+</style>
+<body>
+<div class="background">
+    <div class="scene">
+        <div class="cube">
+            <div class="face front"></div>
+            <div class="face back"></div>
+            <div class="face right"></div>
+            <div class="face left"></div>
+            <div class="face top"></div>
+            <div class="face bottom"></div>
+        </div>
+    </div>
+</div>
+
+<div class="contact-container">
+
+    <h1 class="bubble title">Contact us</h1>
+
+    <div class="contact-card bubble">
+        <h2> Gmail</h2>
+        <p>forpeople.contactus@gmail.com</p>
+    </div>
+
+    <div class="contact-card bubble">
+        <h2> Whatsapp</h2>
+        <p>+77716907378</p>
+    </div>
+
+    <a href="/terms" class="btn back-btn">← Back</a>
+
+</div>
+</body>
+</html>

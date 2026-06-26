@@ -207,17 +207,40 @@ tr:not(:last-child){
                     <td>{{ u.role }}</td>
 
                     <td>
-                        {% if u.role == 'admin' %}
-                        <a href="/set-role/{{ u.id }}/user"
-                           class="btn btn-small">
-                           Make User
-                        </a>
-                        {% else %}
-                        <a href="/set-role/{{ u.id }}/admin"
-                           class="btn btn-small">
-                           Make Admin
-                        </a>
-                        {% endif %}
+         {% if u.role == "admin" %}
+<a href="/set-role/{{u.id}}/user" class="btn btn-small">Make User</a>
+{% else %}
+<a href="/set-role/{{u.id}}/admin" class="btn btn-small">Make Admin</a>
+{% endif %}
+
+<br><br>
+
+<a href="/delete-user/{{u.id}}" class="btn btn-small"
+onclick="return confirm('Delete user?')">
+Delete
+</a>
+
+<br><br>
+
+<form action="/change-password/{{u.id}}" method="POST">
+    <input
+        type="password"
+        name="password"
+        placeholder="New password"
+        style="
+            padding:8px;
+            border-radius:8px;
+            border:none;
+            width:180px;
+            margin-bottom:10px;
+        ">
+
+    <br>
+
+    <button type="submit" class="btn btn-small">
+        Change password
+    </button>
+</form>
                     </td>
                 </tr>
                 {% endfor %}

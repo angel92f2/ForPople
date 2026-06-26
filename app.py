@@ -549,6 +549,63 @@ def contacts():
 
     return render_template("contact page.html")
 
+@app.route("/delete-user/<int:user_id>")
+def delete_user(user_id):
+
+    if "user" not in session:
+        return redirect("/login")
+
+    current_user = User.query.filter_by(username=session["user"]).first()
+
+    if not current_user or current_user.role != "admin":
+        return "Error 403", 403
+
+    user = db.session.get(User, user_id)
+
+    if not user:
+        return "User not found"
+
+    if user.username == session["user"]:
+        return "You can't delete yourself"
+
+    db.session.delete(user)
+    db.session.commit()
+
+    add_log(
+        f"Delete user: {user.username}",
+        session["user"]
+    )
+
+    return redirect("/admin")
+
+@app.route("/change-password/<int:user_id>", methods=["POST"])
+def change_password(user_id):
+
+    if "user" not in session:
+        return redirect("/login")
+
+    current_user = User.query.filter_by(username=session["user"]).first()
+
+    if not current_user or current_user.role != "admin":
+        return "Error 403", 403
+
+    new_password = request.form["password"]
+
+    user = db.session.get(User, user_id)
+
+    if not user:
+        return "User not found"
+
+    user.password = new_password
+    db.session.commit()
+
+    add_log(
+        f"Changed password: {user.username}",
+        session["user"]
+    )
+
+    return redirect("/admin")
+
 if __name__ == "__main__":
     app.run(debug=True)
 

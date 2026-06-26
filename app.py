@@ -462,7 +462,16 @@ def profile():
         return redirect("/login")
 
     user = User.query.filter_by(username=session["user"]).first()
-    return render_template("profile.html", username=user.username, role=user.role)
+
+    if user is None:
+        session.clear()
+        return redirect("/login")
+
+    return render_template(
+        "profile.html",
+        username=user.username,
+        role=user.role
+    )
 
 @app.route("/logout")
 def logout():

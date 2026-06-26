@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Terms - For People</title>
+
+<style>
+
+/* ===== BASE ===== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+}
+
+body{
+    color:white;
+    background:
+    radial-gradient(circle at top left,#2563eb 0%,transparent 35%),
+    radial-gradient(circle at bottom right,#7c3aed 0%,transparent 35%),
+    #0f172a;
+
+    overflow-x:hidden;
+}
+
+/* ===== BACKGROUND CUBE ===== */
+
+.background{
+    position:fixed;
+    inset:0;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    z-index:-1;
+    pointer-events:none;
+}
+
+.scene{
+    width:600px;
+    height:600px;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    perspective:1200px;
+}
+
+.cube{
+    width:350px;
+    height:350px;
+    position:relative;
+    transform-style:preserve-3d;
+    animation:rotate 18s linear infinite;
+}
+
+.face{
+    position:absolute;
+    width:350px;
+    height:350px;
+
+    background:rgba(59,130,246,.10);
+    border:2px solid rgba(96,165,250,.25);
+    border-radius:30px;
+
+    box-shadow:0 0 80px rgba(59,130,246,.15);
+    backdrop-filter:blur(10px);
+}
+
+.front  { transform:translateZ(175px); }
+.back   { transform:rotateY(180deg) translateZ(175px); }
+.right  { transform:rotateY(90deg) translateZ(175px); }
+.left   { transform:rotateY(-90deg) translateZ(175px); }
+.top    { transform:rotateX(90deg) translateZ(175px); }
+.bottom { transform:rotateX(-90deg) translateZ(175px); }
+
+@keyframes rotate{
+    from{ transform:rotateX(0deg) rotateY(0deg); }
+    to{ transform:rotateX(360deg) rotateY(360deg); }
+}
+
+/* ===== PAGE LAYOUT ===== */
+
+.container{
+    max-width:1100px;
+    margin:auto;
+    padding:120px 20px 80px;
+}
+
+/* ===== TITLE ===== */
+
+h1{
+    font-size:70px;
+    text-align:center;
+    margin-bottom:40px;
+}
+
+/* ===== CARD STYLE ===== */
+
+.card{
+    background:rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.15);
+    backdrop-filter:blur(15px);
+
+    padding:25px;
+    border-radius:20px;
+
+    margin-bottom:20px;
+    line-height:1.6;
+}
+
+h2{
+    font-size:28px;
+    margin-bottom:10px;
+}
+
+h3{
+    font-size:18px;
+    opacity:.9;
+}
+
+/* ===== BACK BUTTON ===== */
+
+.back{
+    display:inline-block;
+    margin-top:30px;
+
+    padding:14px 28px;
+    border-radius:12px;
+
+    text-decoration:none;
+    color:white;
+
+    background:linear-gradient(135deg,#3b82f6,#8b5cf6);
+}
+
+a{
+    color:#93c5fd;
+}
+
+.hero-buttons,
+.btn,
+.back{
+    transform: none !important;
+    rotate: none !important;
+}
+
+</style>
+</head>
+<body>
+
+
+
+<!-- ===== CONTENT ===== -->
+<div class="container">
+    <div class="background">
+    <div class="scene">
+        <div class="cube">
+            <div class="face front"></div>
+            <div class="face back"></div>
+            <div class="face right"></div>
+            <div class="face left"></div>
+            <div class="face top"></div>
+            <div class="face bottom"></div>
+
+        </div>
+    </div>
+</div>
+
+    <h1>Terms</h1>
+
+    <div class="card">
+        <h2>1. Acceptance of Terms</h2>
+        <h3>By using this website, you agree to these Terms of Use.</h3>
+    </div>
+
+    <div class="card">
+        <h2>2. Educational Purpose</h2>
+        <h3>This website provides free educational programming content only.</h3>
+    </div>
+
+    <div class="card">
+        <h2>3. User Responsibilities</h2>
+        <h3>
+            • Use the website legally<br>
+            • Respect other users<br>
+            • Do not hack or damage the site<br>
+            • Do not upload viruses or harmful code
+        </h3>
+    </div>
+
+    <div class="card">
+        <h2>4. Intellectual Property</h2>
+        <h3>Content belongs to the site and is for learning use only.</h3>
+    </div>
+
+    <div class="card">
+        <h2>5. No Warranty</h2>
+        <h3>We do not guarantee accuracy or reliability of content.</h3>
+    </div>
+
+    <div class="card">
+        <h2>6. Limitation of Liability</h2>
+        <h3>We are not responsible for any damages from using the site.</h3>
+    </div>
+
+    <div class="card">
+        <h2>7. Third-Party Links</h2>
+        <h3>We are not responsible for external websites.</h3>
+    </div>
+
+    <div class="card">
+        <h2>8. Changes to Terms</h2>
+        <h3>We may update these terms at any time.</h3>
+    </div>
+
+    <div class="card">
+        <h2>9. Contact</h2>
+        <h3>
+            Contact us in <a href="/contacts">contact page</a>.
+        </h3>
+    </div>
+
+    <a class="back" href="/index">Back</a>
+
+</div>
+
+</body>
+</html>

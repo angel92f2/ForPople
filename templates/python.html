@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python</title>
+</head>
+<style>
+    *{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+}
+
+body{
+    color:white;
+    background:
+    radial-gradient(circle at top left,#2563eb 0%,transparent 35%),
+    radial-gradient(circle at bottom right,#7c3aed 0%,transparent 35%),
+    #0f172a;
+
+    overflow-x:hidden;
+}
+.container{
+    max-width:1100px;
+    margin:100px auto;
+    padding:0 20px;
+}
+
+.page-title{
+    text-align:center;
+    font-size:70px;
+    margin-bottom:50px;
+}
+
+.lesson-card{
+    background:rgba(255,255,255,.08);
+    backdrop-filter:blur(15px);
+
+    border:1px solid rgba(255,255,255,.15);
+    border-radius:25px;
+
+    padding:30px;
+    margin-bottom:25px;
+
+    box-shadow:0 0 30px rgba(255,255,255,.05);
+}
+
+.lesson-card h2{
+    margin-bottom:15px;
+    font-size:32px;
+}
+
+.lesson-card p{
+    font-size:18px;
+    line-height:1.8;
+}
+
+.code{
+    background:#0f172a;
+
+    color:#808080;
+
+    border-radius:15px;
+
+    padding:20px;
+
+    overflow-x:auto;
+
+    font-size:16px;
+
+    margin:20px 0;
+}
+
+.premium-card{
+    text-align:center;
+
+    background:rgba(59,130,246,.15);
+
+    border:1px solid rgba(96,165,250,.3);
+
+    border-radius:25px;
+
+    padding:40px;
+
+    margin-top:40px;
+}
+.background{
+    position:fixed;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    z-index:-1;
+    pointer-events:none;
+}
+
+.scene{
+    width:600px;
+    height:600px;
+    perspective:1200px;
+}
+
+.cube{
+    width:350px;
+    height:350px;
+    position:relative;
+    transform-style:preserve-3d;
+    animation:rotate 18s linear infinite;
+}
+
+.face{
+    position:absolute;
+    width:350px;
+    height:350px;
+
+    background:rgba(59,130,246,.10);
+    border:2px solid rgba(96,165,250,.25);
+    border-radius:30px;
+
+    box-shadow:0 0 80px rgba(59,130,246,.15);
+    backdrop-filter:blur(10px);
+}
+
+.front  { transform:translateZ(175px); }
+.back   { transform:rotateY(180deg) translateZ(175px); }
+.right  { transform:rotateY(90deg) translateZ(175px); }
+.left   { transform:rotateY(-90deg) translateZ(175px); }
+.top    { transform:rotateX(90deg) translateZ(175px); }
+.bottom { transform:rotateX(-90deg) translateZ(175px); }
+
+@keyframes rotate{
+    from{ transform:rotateX(0deg) rotateY(0deg); }
+    to{ transform:rotateX(360deg) rotateY(360deg); }
+}
+.btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+
+    padding:14px 28px;
+
+    border:none;
+    border-radius:14px;
+
+    text-decoration:none;
+    font-weight:600;
+    font-size:16px;
+    color:white;
+
+    background:linear-gradient(
+        135deg,
+        #2563eb,
+        #7c3aed
+    );
+
+    box-shadow:
+        0 10px 25px rgba(37,99,235,.3),
+        0 0 20px rgba(124,58,237,.2);
+
+    transition:.3s;
+}
+
+.btn:hover{
+    transform:translateY(-3px);
+    box-shadow:
+        0 15px 35px rgba(37,99,235,.4),
+        0 0 30px rgba(124,58,237,.3);
+}
+
+.btn:active{
+    transform:translateY(0);
+}
+</style>
+<body>
+ <div class="container">
+
+    <a href="/lessons" class="btn">← Back</a>
+
+    <h1 class="page-title">Python</h1>
+
+    <div class="lesson-card">
+        <h2>Basics</h2>
+
+        <p>
+            Let's start from the beginning: how do you create a variable?
+            To create a variable in Python, write:
+        </p>
+
+        <pre class="code">
+name = "Alex"
+age = 16
+        </pre>
+
+        <p>
+            Variable names cannot use Python keywords such as
+            if, for, while, class, etc.
+        </p>
+    </div>
+
+    <div class="lesson-card">
+        <h2>Conditions</h2>
+
+        <p>
+            Python uses if, elif and else to make decisions.
+        </p>
+
+        <pre class="code">
+age = 18
+
+if age >= 18:
+    print("Adult")
+else:
+    print("Minor")
+        </pre>
+    </div>
+
+    <div class="lesson-card">
+        <h2>Input Function</h2>
+
+        <pre class="code">
+name = input("What's your name?")
+print("Hello,", name)
+        </pre>
+
+        <p>
+            input() always returns text (string).
+        </p>
+    </div>
+
+    <div class="lesson-card">
+        <h2>Useful Functions</h2>
+
+        <pre class="code">
+len("Hello") #string length is 5 characters
+abs(-5) #will output the absolute value of the number -5 — 5
+type(10) #will output < class 'int' >
+        </pre>
+    </div>
+
+    <div class="lesson-card">
+        <h2>Calculator Example</h2>
+
+        <pre class="code">
+a = int(input("First number: "))
+b = int(input("Second number: "))
+op = input("Operation: ")
+
+if op == "+":
+    print(a + b)
+elif op == "-":
+    print(a - b)
+elif op == "*":
+    print(a * b)
+elif op == "/":
+    print(a / b)
+else:
+    print("Error")
+        </pre>
+    </div>
+
+    <div class="premium-card">
+
+        <h2>Want More?</h2>
+
+        <p>
+            Unlock advanced Python lessons and projects.
+        </p>
+<p></p>
+        <a href="https://youtu.be/dQw4w9WgXcQ?si=rJ_FV0Qy11Vm5U_V"
+           class="btn" style="margin-top: 20px;">
+            Get Premium
+        </a>
+
+    </div>
+
+</div>
+</body>
+</html>

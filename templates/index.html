@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>For People</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    color:white;
+    overflow-x:hidden;
+
+    background:
+    radial-gradient(circle at top left,#2563eb 0%,transparent 35%),
+    radial-gradient(circle at bottom right,#7c3aed 0%,transparent 35%),
+    #0f172a;
+}
+
+/* Навигация */
+
+.navbar{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    padding:20px 60px;
+
+    background:rgba(15,23,42,.7);
+    backdrop-filter:blur(15px);
+
+    z-index:1000;
+}
+
+.logo{
+    font-size:32px;
+    font-weight:bold;
+}
+
+.nav-links{
+    display:flex;
+    gap:20px;
+}
+
+.nav-links a{
+    color:white;
+    text-decoration:none;
+    transition:.3s;
+}
+
+.nav-links a:hover{
+    color:#60a5fa;
+}
+
+/* Главный экран */
+
+.hero{
+    min-height:100vh;
+
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+
+    text-align:center;
+}
+
+.hero h1{
+    font-size:90px;
+    margin-bottom:15px;
+}
+
+.hero p{
+    font-size:24px;
+    opacity:.8;
+}
+
+.hero-buttons{
+    margin-top:50px;
+}
+
+.btn{
+    padding:15px 35px;
+    border-radius:15px;
+
+    text-decoration:none;
+    color:white;
+
+    background:linear-gradient(
+        135deg,
+        #3b82f6,
+        #8b5cf6
+    );
+
+    transition:.3s;
+}
+
+.btn:hover{
+    transform:translateY(-5px);
+}
+
+/* О нас */
+
+.about{
+    display:flex;
+    justify-content:center;
+    padding:100px 20px;
+}
+
+.card{
+    width:900px;
+    max-width:100%;
+
+    padding:40px;
+
+    background:rgba(255,255,255,.08);
+
+    backdrop-filter:blur(20px);
+
+    border-radius:25px;
+
+    border:1px solid rgba(255,255,255,.15);
+}
+
+.card h2{
+    font-size:42px;
+    margin-bottom:20px;
+}
+
+.card p{
+    font-size:20px;
+    line-height:1.7;
+}
+
+/* Куб */
+
+.background{
+ position:fixed;
+
+    top:70%;
+    left:60%;
+
+    transform:translate(-50%, -50%);
+
+    width:600px;
+    height:600px;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    z-index:-1;
+    pointer-events:none;
+}
+
+.scene{
+    width:600px;
+    height:600px;
+    perspective:1200px;
+}
+
+.cube{
+    width:350px;
+    height:350px;
+
+    position:relative;
+
+    transform-style:preserve-3d;
+
+    animation:rotate 20s linear infinite;
+}
+
+.face{
+    position:absolute;
+
+    width:350px;
+    height:350px;
+
+    border-radius:35px;
+
+    background:rgba(59,130,246,.08);
+
+    border:2px solid rgba(96,165,250,.25);
+
+    box-shadow:
+        0 0 80px rgba(59,130,246,.15);
+
+    backdrop-filter:blur(10px);
+}
+
+.front  { transform:translateZ(175px); }
+.back   { transform:rotateY(180deg) translateZ(175px); }
+
+.right  { transform:rotateY(90deg) translateZ(175px); }
+.left   { transform:rotateY(-90deg) translateZ(175px); }
+
+.top    { transform:rotateX(90deg) translateZ(175px); }
+.bottom { transform:rotateX(-90deg) translateZ(175px); }
+
+@keyframes rotate{
+    from{
+        transform:rotateX(0deg) rotateY(0deg);
+    }
+    to{
+        transform:rotateX(360deg) rotateY(360deg);
+    }
+}
+
+</style>
+</head>
+<body>
+
+
+<header class="navbar"> 
+    <div class="logo">For People</div> 
+    <div class="nav-links"> 
+        <a href="/lessons">Lessons</a> 
+        <a href="/terms">Terms</a> 
+        <a href="/forum">Community</a> 
+        <a href="/profile">Profile</a> 
+        {% if role == 'admin' %} 
+        <a href="/admin">Admin Panel</a> 
+        {% endif %} 
+    </div> 
+</header> 
+<div class="background">
+    <div class="scene">
+        <div class="cube">
+            <div class="face front"></div>
+            <div class="face back"></div>
+            <div class="face right"></div>
+            <div class="face left"></div>
+            <div class="face top"></div>
+            <div class="face bottom"></div>
+        </div>
+    </div>
+</div>
+<section class="hero"> 
+    <h1>For People</h1>
+     <p> The best free assistant for learning programming languages. </p>
+      <div class="hero-buttons"> 
+        <a href="/lessons" class="btn">Start Learning</a> 
+        <a href="/forum" class="btn">Community</a> 
+    </div> 
+</section> 
+<section class="about"> 
+    <div class="card"> 
+        <h2>About Us</h2> 
+        <p> For People is a platform where anyone can learn programming languages, discover modern technologies, communicate with other learners and start their path in the IT world. </p> 
+    </div> 
+</section> 
+</body> 
+</html>

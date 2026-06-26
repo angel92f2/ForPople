@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>admin</title>
+</head>
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+}
+
+body{
+    color:white;
+    background:
+    radial-gradient(circle at top left,#2563eb 0%,transparent 35%),
+    radial-gradient(circle at bottom right,#7c3aed 0%,transparent 35%),
+    #0f172a;
+
+    overflow-x:hidden;
+}
+.container{
+    max-width:1200px;
+    margin:120px auto 50px;
+    padding:0 20px;
+}
+
+.page-title{
+    text-align:center;
+    font-size:60px;
+    margin-bottom:30px;
+}
+
+.card{
+    background:rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.15);
+    backdrop-filter:blur(20px);
+
+    border-radius:25px;
+    padding:25px;
+    margin-bottom:25px;
+
+    box-shadow:
+        0 0 30px rgba(59,130,246,.1);
+}
+
+.top-bar{
+    display:flex;
+    gap:15px;
+    margin-bottom:30px;
+}
+
+.btn{
+    display:inline-block;
+
+    padding:12px 24px;
+    border-radius:12px;
+
+    text-decoration:none;
+    color:white;
+
+    background:linear-gradient(
+        135deg,
+        #3b82f6,
+        #8b5cf6
+    );
+}
+
+.btn-small{
+    padding:8px 16px;
+    font-size:14px;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th{
+    text-align:left;
+    padding:15px;
+    border-bottom:1px solid rgba(255,255,255,.15);
+}
+
+td{
+    padding:15px;
+}
+
+tr:not(:last-child){
+    border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+.section-title{
+    font-size:28px;
+    margin-bottom:15px;
+}
+
+.log{
+    padding:10px 0;
+    border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+.background{
+    position:fixed;
+    inset:0;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    z-index:-1;
+    pointer-events:none;
+}
+
+.scene{
+    width:600px;
+    height:600px;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    perspective:1200px;
+}
+
+.cube{
+    width:350px;
+    height:350px;
+    position:relative;
+    transform-style:preserve-3d;
+    animation:rotate 18s linear infinite;
+}
+
+.face{
+    position:absolute;
+    width:350px;
+    height:350px;
+
+    background:rgba(59,130,246,.10);
+    border:2px solid rgba(96,165,250,.25);
+    border-radius:30px;
+
+    box-shadow:0 0 80px rgba(59,130,246,.15);
+    backdrop-filter:blur(10px);
+}
+
+.front  { transform:translateZ(175px); }
+.back   { transform:rotateY(180deg) translateZ(175px); }
+.right  { transform:rotateY(90deg) translateZ(175px); }
+.left   { transform:rotateY(-90deg) translateZ(175px); }
+.top    { transform:rotateX(90deg) translateZ(175px); }
+.bottom { transform:rotateX(-90deg) translateZ(175px); }
+
+@keyframes rotate{
+    from{ transform:rotateX(0deg) rotateY(0deg); }
+    to{ transform:rotateX(360deg) rotateY(360deg); }
+}
+
+</style>
+<body>
+<div class="background">
+    <div class="scene">
+        <div class="cube">
+
+            <div class="face front"></div>
+            <div class="face back"></div>
+            <div class="face right"></div>
+            <div class="face left"></div>
+            <div class="face top"></div>
+            <div class="face bottom"></div>
+
+        </div>
+    </div>
+</div>
+<div class="container">
+
+    <div class="top-bar">
+        <a href="/profile" class="btn">← Profile</a>
+        <a href="/index" class="btn">Main</a>
+    </div>
+
+    <h1 class="page-title">Admin Panel</h1>
+
+    <div class="card">
+
+        <h2 class="section-title">Users</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Username</th>
+                    <th>Role</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for u in users %}
+                <tr>
+                    <td>{{ u.id }}</td>
+                    <td>{{ u.username }}</td>
+                    <td>{{ u.role }}</td>
+
+                    <td>
+         {% if u.role == "admin" %}
+<a href="/set-role/{{u.id}}/user" class="btn btn-small">Make User</a>
+{% else %}
+<a href="/set-role/{{u.id}}/admin" class="btn btn-small">Make Admin</a>
+{% endif %}
+
+<br><br>
+
+<a href="/delete-user/{{u.id}}" class="btn btn-small"
+onclick="return confirm('Delete user?')">
+Delete
+</a>
+
+<br><br>
+
+<form action="/change-password/{{u.id}}" method="POST">
+    <input
+        type="password"
+        name="password"
+        placeholder="New password"
+        style="
+            padding:8px;
+            border-radius:8px;
+            border:none;
+            width:180px;
+            margin-bottom:10px;
+        ">
+
+    <br>
+
+    <button type="submit" class="btn btn-small">
+        Change password
+    </button>
+</form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+
+        </table>
+
+    </div>
+
+    <div class="card">
+
+        <h2 class="section-title">Logs</h2>
+
+        {% for log in logs %}
+        <div class="log">
+            ID: {{ log.id }}
+            | Username: {{ log.username }}
+            | Action: {{ log.action }}
+        </div>
+        {% endfor %}
+
+    </div>
+
+    <div class="card">
+
+        <h2 class="section-title">Posts</h2>
+
+        {% for post in posts %}
+        <div class="log">
+            ID: {{ post.id }}
+            | Author: {{ post.author }}
+            | Title: {{ post.title }}
+        </div>
+        {% endfor %}
+
+    </div>
+
+    <div class="card">
+
+        <h2 class="section-title">Comments</h2>
+
+        {% for comment in comments %}
+        <div class="log">
+            ID: {{ comment.id }}
+            | Author: {{ comment.author }}
+            | Text: {{ comment.text }}
+        </div>
+        {% endfor %}
+
+    </div>
+
+</div>
+</body>
+</html>

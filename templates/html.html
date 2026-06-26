@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    *{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+}
+
+body{
+    color:white;
+    background:
+    radial-gradient(circle at top left,#2563eb 0%,transparent 35%),
+    radial-gradient(circle at bottom right,#7c3aed 0%,transparent 35%),
+    #0f172a;
+
+    overflow-x:hidden;
+}
+.container{
+    max-width:1100px;
+    margin:100px auto;
+    padding:0 20px;
+}
+
+.page-title{
+    text-align:center;
+    font-size:70px;
+    margin-bottom:40px;
+}
+
+.section-title{
+    font-size:32px;
+    margin:40px 0 20px;
+}
+
+.lesson-card{
+    background:rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.15);
+    backdrop-filter:blur(15px);
+
+    border-radius:25px;
+    padding:25px;
+    margin-bottom:20px;
+
+    box-shadow:0 0 30px rgba(255,255,255,.05);
+}
+
+.lesson-card pre{
+    white-space:pre-wrap;
+    word-break:break-word;
+    overflow-x:auto;
+
+    background:#111827;
+    color:#808080;
+
+    padding:20px;
+    border-radius:15px;
+}
+
+.top-bar{
+    margin-bottom:30px;
+}
+
+.premium{
+    text-align:center;
+    margin-top:40px;
+}
+.btn{
+    display:inline-block;
+
+    padding:12px 24px;
+
+    border-radius:12px;
+
+    text-decoration:none;
+    color:white;
+
+    background:linear-gradient(
+        135deg,
+        #3b82f6,
+        #8b5cf6
+    );
+}
+.background{
+    position:fixed;
+    inset:0;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    z-index:-1;
+    pointer-events:none;
+}
+
+.scene{
+    width:600px;
+    height:600px;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    perspective:1200px;
+}
+
+.cube{
+    width:350px;
+    height:350px;
+    position:relative;
+    transform-style:preserve-3d;
+    animation:rotate 18s linear infinite;
+}
+
+.face{
+    position:absolute;
+    width:350px;
+    height:350px;
+
+    background:rgba(59,130,246,.10);
+    border:2px solid rgba(96,165,250,.25);
+    border-radius:30px;
+
+    box-shadow:0 0 80px rgba(59,130,246,.15);
+    backdrop-filter:blur(10px);
+}
+
+.front  { transform:translateZ(175px); }
+.back   { transform:rotateY(180deg) translateZ(175px); }
+.right  { transform:rotateY(90deg) translateZ(175px); }
+.left   { transform:rotateY(-90deg) translateZ(175px); }
+.top    { transform:rotateX(90deg) translateZ(175px); }
+.bottom { transform:rotateX(-90deg) translateZ(175px); }
+
+@keyframes rotate{
+    from{ transform:rotateX(0deg) rotateY(0deg); }
+    to{ transform:rotateX(360deg) rotateY(360deg); }
+}
+</style>
+<body>
+    <div class="container">
+        <div class="background">
+    <div class="scene">
+        <div class="cube" id="cube">
+            <div class="face front"></div>
+            <div class="face back"></div>
+            <div class="face right"></div>
+            <div class="face left"></div>
+            <div class="face top"></div>
+            <div class="face bottom"></div>
+        </div>
+    </div>
+</div>
+    <div class="top-bar">
+        <a href="/lessons" class="btn">← Back</a>
+    </div>
+    <h1 class="page-title bubble">HTML</h1>
+    <p></p>
+    <h2 class="section-title bubble">Basics</h2>
+    <p></p>
+    <div class="lesson-card bubble">HTML isn't a programming language; 
+it's a markup language used to tell your browser how to display the web pages you visit. 
+It can be as complex or simple as the web designer desires. 
+HTML consists of a series of elements that you use to nest or wrap different pieces of 
+content to make the content appear or act in a certain way.</div>
+<div class="lesson-card bubble">If we wanted a line to stand on its own, we could indicate that it was a paragraph by enclosing it in paragraph tags:
+    < p > My cat is very irritated < /p > </div>
+<div class="lesson-card bubble">Attributes contain additional information about an element that you don't want to appear in the actual content. In this case, class is the attribute name, and editor-note is the attribute value. The class allows you to give the element an identifying name that can later be used to access the element with style information and other information.</div>
+<div class="lesson-card bubble">An attribute must always have:
+
+1. A space between it and the element name (or the preceding attribute if the element already has one or more attributes).
+2. The attribute name, followed by an equals sign.
+3. The attribute value, enclosed in double quotation marks.</div>
+<p></p>
+<h2 class="section-title bubble">
+        Anatomy of an HTML document
+    </h2>
+<div class="lesson-card bubble">We've covered the basics of individual HTML elements, but they're not very useful on their own. Now we'll look at how individual elements are combined into a complete HTML page. Let's return to the code we wrote in our index.html (which we first encountered in the Working with Files article):</div>
+<div class="lesson-card bubble"><pre>< !doctype html >
+< html >
+  < head >
+    < meta charset="utf-8" / >
+    < title >My first page< /title >
+  < /head >
+  < body >
+    < img src="images/firefox-icon.png" alt="My test image" / >
+  < /body >
+< /html ></pre></div>
+<div class="lesson-card bubble"><strong><pre>Here we have:
+
+< !DOCTYPE html > — doctype. Back when HTML was young (around 1991/1992), 
+doctypes were supposed to serve as a reference to a set of rules 
+that an HTML page had to follow to be considered good HTML, 
+which could mean automatic error checking and other useful things. 
+However, nowadays, no one cares about this, 
+and they're really just a historical artifact that must be included for everything to work properly. 
+For now, that's all you need to know.
+
+< html>< /html > — the < html > element. This element wraps all content on the entire page 
+and is sometimes known as the root element.
+
+< head >< /head > — the < head>  element. This element acts as a container for anything 
+you want to include on an HTML page that isn't the content you're displaying to your page's users. 
+These include things like keywords and page descriptions that will appear in search results, 
+CSS styling for our content, encoding, and much more.
+< body >< /body > — The < body > element. It contains all the content 
+you want to display to users when they visit your page, 
+whether it's text, 
+images, videos, games, audio tracks, or anything else.
+< meta charset="utf-8" > — This element sets the UTF-8 encoding for your document, 
+which includes most characters from all known languages. 
+Essentially, the document can now handle any text content you put in it. 
+There's no reason not to set this, as it can help avoid some issues later.
+< title >< /title > — The < title>  element. This element sets the title for your page, 
+which is the name that appears 
+in the browser tab when the page loads and is used to describe the page when you bookmark or favorite it.</pre></strong></div>
+ <div class="premium">
+        <h2 class="bubble">
+            Want more? Get premium to continue!
+        </h2>
+
+        <br>
+        <a href="https://youtu.be/dQw4w9WgXcQ?si=rJ_FV0Qy11Vm5U_V"
+           class="btn" style="margin-bottom: 20px;">
+           Get Premium
+        </a>
+        <p></p>
+    </div>
+<p></p>
+    </div>
+<p></p>
+</body>
+</html>

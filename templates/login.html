@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Login</title>
+</head>
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    background:
+    radial-gradient(circle at top left,#2563eb 0%,transparent 35%),
+    radial-gradient(circle at bottom right,#7c3aed 0%,transparent 35%),
+    #0f172a;
+
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    color:white;
+    overflow:hidden;
+}
+
+/* КУБ */
+
+.background{
+    position:fixed;
+    inset:0;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    z-index:-1;
+}
+
+.scene{
+    width:500px;
+    height:500px;
+    perspective:1200px;
+}
+
+.cube{
+    width:280px;
+    height:280px;
+
+    position:relative;
+
+    margin:auto;
+
+    transform-style:preserve-3d;
+
+    animation:rotate 15s linear infinite;
+}
+
+.face{
+    position:absolute;
+
+    width:280px;
+    height:280px;
+
+    border-radius:30px;
+
+    background:rgba(59,130,246,.08);
+    border:2px solid rgba(96,165,250,.2);
+
+    box-shadow:0 0 60px rgba(59,130,246,.2);
+}
+
+.front{transform:translateZ(140px);}
+.back{transform:rotateY(180deg) translateZ(140px);}
+.right{transform:rotateY(90deg) translateZ(140px);}
+.left{transform:rotateY(-90deg) translateZ(140px);}
+.top{transform:rotateX(90deg) translateZ(140px);}
+.bottom{transform:rotateX(-90deg) translateZ(140px);}
+
+@keyframes rotate{
+    from{
+        transform:rotateX(0deg) rotateY(0deg);
+    }
+    to{
+        transform:rotateX(360deg) rotateY(360deg);
+    }
+}
+
+/* ФОРМА */
+
+.auth-card{
+    width:450px;
+
+    padding:40px;
+
+    background:rgba(255,255,255,.08);
+
+    backdrop-filter:blur(15px);
+
+    border:1px solid rgba(255,255,255,.15);
+
+    border-radius:25px;
+}
+
+.auth-card h1{
+    text-align:center;
+    font-size:50px;
+    margin-bottom:30px;
+}
+
+input{
+    width:100%;
+
+    padding:15px;
+
+    margin-bottom:15px;
+
+    background:rgba(255,255,255,.08);
+
+    border:1px solid rgba(255,255,255,.15);
+
+    border-radius:15px;
+
+    color:white;
+    font-size:18px;
+}
+
+input::placeholder{
+    color:rgba(255,255,255,.6);
+}
+
+.buttons{
+    display:flex;
+    gap:15px;
+    margin-top:10px;
+}
+
+.btn{
+    flex:1;
+
+    padding:15px;
+
+    text-align:center;
+
+    border:none;
+    cursor:pointer;
+
+    border-radius:15px;
+
+    color:white;
+    text-decoration:none;
+
+    font-size:18px;
+
+    background:linear-gradient(
+        135deg,
+        #3b82f6,
+        #8b5cf6
+    );
+
+    transition:.3s;
+}
+
+.btn:hover{
+    transform:translateY(-3px);
+}
+</style>
+<body>
+<div class="background">
+    <div class="scene">
+        <div class="cube">
+
+            <div class="face front"></div>
+            <div class="face back"></div>
+            <div class="face right"></div>
+            <div class="face left"></div>
+            <div class="face top"></div>
+            <div class="face bottom"></div>
+
+        </div>
+    </div>
+</div>
+
+<div class="auth-card">
+
+    <h1>Login</h1>
+
+    <form method="POST">
+
+        <input
+            type="text"
+            name="username"
+            placeholder="Username"
+            required>
+
+        <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            required>
+
+        <div class="buttons">
+
+            <button
+                type="submit"
+                class="btn">
+                Login
+            </button>
+
+            <a
+                href="/register"
+                class="btn">
+                Register
+            </a>
+
+        </div>
+
+    </form>
+
+</div>
+</div>
+</body>
+</html>

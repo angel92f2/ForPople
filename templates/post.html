@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+body{
+    margin:0;
+    min-height:100vh;
+    color:white;
+    overflow-x:hidden;
+
+    background:
+    radial-gradient(circle at top left,#2563eb 0%,transparent 35%),
+    radial-gradient(circle at bottom right,#7c3aed 0%,transparent 35%),
+    #0f172a;
+
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+}
+.container{
+    max-width:1000px;
+    margin:auto;
+    padding:50px 20px;
+}
+
+.page-title{
+    text-align:center;
+    font-size:70px;
+    margin-bottom:40px;
+}
+
+.section-title{
+    margin:30px 0 20px;
+    font-size:32px;
+}
+
+.card{
+    background:rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.15);
+    backdrop-filter:blur(15px);
+
+    border-radius:24px;
+    padding:25px;
+    margin-bottom:20px;
+
+    color:white;
+}
+
+.card p{
+    margin:10px 0;
+    line-height:1.7;
+}
+
+.comment-card{
+    transition:.3s;
+}
+
+.comment-card:hover{
+    transform:translateY(-3px);
+}
+
+.comment-header{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    margin-bottom:10px;
+}
+
+textarea{
+    width:100%;
+    min-height:140px;
+
+    background:rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.15);
+
+    color:white;
+    border-radius:16px;
+
+    padding:15px;
+    resize:none;
+    box-sizing:border-box;
+}
+
+.actions{
+    display:flex;
+    gap:15px;
+    margin-top:20px;
+}
+
+.btn{
+    padding:14px 28px;
+    border:none;
+    border-radius:14px;
+
+    color:white;
+    text-decoration:none;
+    cursor:pointer;
+
+    background:linear-gradient(
+        135deg,
+        #3b82f6,
+        #8b5cf6
+    );
+}
+.delete-btn{
+    display:inline-block;
+
+    padding:10px 20px;
+    margin-top:10px;
+
+    background:white;
+    color:#2563eb;
+
+    text-decoration:none;
+    font-weight:600;
+
+    border-radius:12px;
+    border:none;
+
+    transition:.3s;
+}
+
+.delete-btn:hover{
+    background:#f1f5f9;
+    color:#2563eb;
+
+    text-decoration:none;
+}
+
+.delete-btn:visited{
+    color:#2563eb;
+}
+</style>
+<body>
+<div class="container">
+
+    <h1 class="page-title">
+        {{ post.title }}
+    </h1>
+
+    <div class="card">
+        <h2>Description</h2>
+        <p>
+            {{ post.content }}
+        </p>
+    </div>
+
+    <div class="card">
+        <strong>
+            Author: {{ post.author }}
+
+            {% if post.author_role == 'admin' %}
+            <img src="https://static.vecteezy.com/system/resources/thumbnails/047/309/930/small/verified-badge-profile-icon-png.png"
+                 width="18">
+            {% endif %}
+        </strong>
+    </div>
+
+    <h2 class="section-title">
+        Comments
+    </h2>
+
+    {% for comment in comments %}
+
+    <div class="card comment-card">
+
+        <div class="comment-header">
+            <strong>
+                {{ comment.author }}
+            </strong>
+
+            {% if comment.author_role == 'admin' %}
+            <img src="https://static.vecteezy.com/system/resources/thumbnails/047/309/930/small/verified-badge-profile-icon-png.png"
+                 width="18">
+            {% endif %}
+        </div>
+
+        <p>
+            {{ comment.text }}
+        </p>
+
+        {% if current_role == "admin" %}
+        <a href="/forum/delete_comment/{{ comment.id }}" class="delete-btn">
+            Delete
+        </a>
+        {% endif %}
+
+    </div>
+
+    {% endfor %}
+
+    <div class="card">
+
+        <h2>Add comment</h2>
+
+        <form method="POST" action="/forum/comment/{{ post.id }}">
+
+            <textarea
+                name="text"
+                placeholder="Write your comment..."
+                required></textarea>
+
+            <div class="actions">
+
+                <button class="btn">
+                    Send
+                </button>
+
+                <a href="/forum" class="btn">
+                    Back
+                </a>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+</div>
+</body>
+</html>
+

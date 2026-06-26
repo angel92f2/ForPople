@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Profile</title>
+
+<style>
+body{
+    margin:0;
+    min-height:100vh;
+
+    background:
+    radial-gradient(circle at top left,#2563eb 0%,transparent 35%),
+    radial-gradient(circle at bottom right,#7c3aed 0%,transparent 35%),
+    linear-gradient(135deg,#071129,#0a1635,#06112a);
+
+    color:white;
+    font-family:Verdana,sans-serif;
+}
+
+.profile-container{
+    max-width:1000px;
+    margin:auto;
+    padding:80px 20px;
+}
+
+.profile-title{
+    text-align:center;
+    font-size:72px;
+    margin-bottom:40px;
+}
+
+.profile-card{
+    background:rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.15);
+    backdrop-filter:blur(20px);
+
+    border-radius:30px;
+    padding:40px;
+
+    box-shadow:
+    0 20px 60px rgba(0,0,0,.35);
+}
+
+.user-block h2{
+    font-size:42px;
+    margin:0;
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.role{
+    font-size:24px;
+    color:#cbd5e1;
+    margin-top:15px;
+}
+
+.buttons{
+    margin-top:40px;
+
+    display:flex;
+    gap:20px;
+    flex-wrap:wrap;
+}
+
+.btn{
+    display:inline-block;
+
+    padding:14px 28px;
+    border-radius:14px;
+
+    text-decoration:none;
+    color:white;
+    font-weight:600;
+
+    background:linear-gradient(135deg,#3b82f6,#8b5cf6);
+
+    transition:.25s;
+}
+
+.btn:hover{
+    transform:translateY(-3px);
+
+    box-shadow:
+    0 10px 25px rgba(59,130,246,.4);
+
+    color:white;
+}
+</style>
+
+</head>
+<body>
+<div class="background">
+    <div class="scene">
+        <div class="cube">
+            <div class="face front"></div>
+            <div class="face back"></div>
+            <div class="face right"></div>
+            <div class="face left"></div>
+            <div class="face top"></div>
+            <div class="face bottom"></div>
+        </div>
+    </div>
+</div>
+
+<div class="profile-container">
+
+    <h1 class="profile-title">Profile</h1>
+
+    <div class="profile-card">
+
+        <div class="user-block">
+            <h2>
+                {{ username }}
+
+                {% if role == "admin" %}
+                <img
+                    src="https://static.vecteezy.com/system/resources/thumbnails/047/309/930/small/verified-badge-profile-icon-png.png"
+                    width="32"
+                    height="32">
+                {% endif %}
+            </h2>
+
+            <p class="role">
+                Role: {{ role }}
+            </p>
+        </div>
+
+        <div class="buttons">
+
+            {% if role == "admin" %}
+            <a href="/admin" class="btn">
+                Admin Panel
+            </a>
+            {% endif %}
+
+            <a href="/logout" class="btn">
+                Logout
+            </a>
+
+            <a href="/index" class="btn">
+                Main menu
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

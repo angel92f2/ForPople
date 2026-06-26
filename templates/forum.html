@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+.container{
+    max-width:1100px;
+    margin:60px auto;
+    padding:0 20px;
+}
+
+.page-title{
+    text-align:center;
+    margin-bottom:40px;
+}
+
+.forum-form{
+    background:rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.15);
+    backdrop-filter:blur(15px);
+
+    border-radius:25px;
+    padding:25px;
+
+    margin-bottom:40px;
+}
+
+.forum-form input,
+.forum-form textarea{
+    width:100%;
+
+    padding:15px;
+
+    border:none;
+    border-radius:12px;
+
+    margin-bottom:15px;
+
+    background:rgba(255,255,255,.1);
+    color:white;
+}
+
+.post-card{
+    background:rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.15);
+
+    backdrop-filter:blur(15px);
+
+    border-radius:20px;
+
+    padding:20px;
+
+    margin-bottom:20px;
+}
+
+.post-title{
+    font-size:24px;
+    margin-bottom:10px;
+}
+
+.post-title a{
+    color:white;
+    text-decoration:none;
+}
+
+.post-author{
+    opacity:.8;
+    margin-bottom:15px;
+}
+
+.post-actions{
+    display:flex;
+    gap:15px;
+    align-items:center;
+}
+
+.delete-link{
+    color:#ff6b6b;
+    margin-left:15px;
+}
+.delete-link:hover{
+ color: #2563eb;
+}
+.bottom-nav{
+    margin-top:30px;
+}
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+}
+
+body{
+    margin:0;
+    min-height:100vh;
+    color:white;
+    overflow-x:hidden;
+
+    background:
+    radial-gradient(circle at top left,#2563eb 0%,transparent 35%),
+    radial-gradient(circle at bottom right,#7c3aed 0%,transparent 35%),
+    #0f172a;
+
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+}
+.background{
+    position:fixed;
+    inset:0;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    z-index:-1;
+    pointer-events:none;
+}
+
+.scene{
+    width:600px;
+    height:600px;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    perspective:1200px;
+}
+
+.cube{
+    width:350px;
+    height:350px;
+    position:relative;
+    transform-style:preserve-3d;
+    animation:rotate 18s linear infinite;
+}
+
+.face{
+    position:absolute;
+    width:350px;
+    height:350px;
+
+    background:rgba(59,130,246,.10);
+    border:2px solid rgba(96,165,250,.25);
+    border-radius:30px;
+
+    box-shadow:0 0 80px rgba(59,130,246,.15);
+    backdrop-filter:blur(10px);
+}
+
+.front  { transform:translateZ(175px); }
+.back   { transform:rotateY(180deg) translateZ(175px); }
+.right  { transform:rotateY(90deg) translateZ(175px); }
+.left   { transform:rotateY(-90deg) translateZ(175px); }
+.top    { transform:rotateX(90deg) translateZ(175px); }
+.bottom { transform:rotateX(-90deg) translateZ(175px); }
+
+@keyframes rotate{
+    from{ transform:rotateX(0deg) rotateY(0deg); }
+    to{ transform:rotateX(360deg) rotateY(360deg); }
+}
+.btn{
+    display:inline-block;
+
+    padding:12px 24px;
+
+    border-radius:12px;
+
+    text-decoration:none;
+    color:white;
+
+    background:linear-gradient(
+        135deg,
+        #3b82f6,
+        #8b5cf6
+    );
+}
+</style>
+<div class="background">
+    <div class="scene">
+        <div class="cube">
+
+            <div class="face front"></div>
+            <div class="face back"></div>
+            <div class="face right"></div>
+            <div class="face left"></div>
+            <div class="face top"></div>
+            <div class="face bottom"></div>
+
+        </div>
+    </div>
+</div>
+
+<div class="container">
+
+    <h1 class="page-title bubble">
+        Community
+    </h1>
+
+    <form method="POST"
+          action="/forum/create"
+          class="forum-form bubble">
+
+        <input
+            type="text"
+            name="title"
+            placeholder="Topic of post"
+            required>
+
+        <textarea
+            name="content"
+            rows="6"
+            placeholder="Write your post..."
+            required></textarea>
+
+        <button class="btn">
+            Make Post
+        </button>
+
+    </form>
+
+    {% for post in posts %}
+
+    <div class="post-card bubble">
+
+        <div class="post-title">
+
+            <a href="/forum/post/{{ post.id }}">
+                {{ post.title }}
+            </a>
+
+            {% if current_role == "admin" %}
+            <a href="/forum/delete_post/{{ post.id }}"
+               class="delete-link">
+               Delete
+            </a>
+            {% endif %}
+
+        </div>
+
+        <div class="post-author">
+
+            Author:
+            <strong>{{ post.author }}</strong>
+
+            {% if post.author_role == 'admin' %}
+            <img
+                src="https://static.vecteezy.com/system/resources/thumbnails/047/309/930/small/verified-badge-profile-icon-png.png"
+                width="16"
+                height="16">
+            {% endif %}
+
+        </div>
+
+        <div class="post-actions">
+
+            <a href="/forum/like/{{ post.id }}">
+                👍 {{ post.likes }}
+            </a>
+
+            <a href="/forum/dislike/{{ post.id }}">
+                👎 {{ post.dislikes }}
+            </a>
+
+        </div>
+
+    </div>
+
+    {% endfor %}
+
+    <div class="bottom-nav">
+        <a href="/index" class="btn">
+            ← Back
+        </a>
+    </div>
+
+</div>
+</body>
+</html>
